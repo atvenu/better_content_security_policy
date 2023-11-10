@@ -34,6 +34,13 @@ class ApplicationController < ActionController::Base
   after_action :set_content_security_policy_header
 ```
 
+If your application also serves non-HTML requests, such as JSON, you may want to restrict the
+callback to HTML-only:
+
+```ruby
+   after_action :set_content_security_policy_header, if: -> { request.format.html? }
+```
+
 Define a `#configure_content_security_policy` method in `ApplicationController` to configure the default `Content-Security-Policy` rules:
 
 ```ruby
